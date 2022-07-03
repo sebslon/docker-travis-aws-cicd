@@ -1,33 +1,8 @@
 version: '3'
 services:
   web:
-    build: 
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3001:3000"
-    volumes: # hot reloading
-      - /app/node_modules # use the same volume as the node_modules folder
-      - .:/app # mount the current directory into the container
-
-  ## Hot reloading tests
-  ## Yet another options is use docker ps -> docker attach <image_id>
-  tests: 
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - .:/app
-    command: ["npm", "run", "test"]
-    depends_on:
-      - 'web'
-
-# docker build -f Dockerfile.dev . - build from specified Dockerfile
-# docker run -it <imageId> <shell script || sh>
-
-# HOT RELOADING
-# - Attach volumes /app/node_modules , .:/app - bind app
-# - Live running tests -> docker exec -it 043c767ca66bb npm run test (just execute a sh script in the container) 
-
-# docker exec -it <image_id> sh
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
