@@ -1,0 +1,10 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t sebslon/docker-travis-aws-cicd -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true sebslon/docker-travis-aws-cicd npm run test
